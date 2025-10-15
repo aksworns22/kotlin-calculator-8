@@ -35,6 +35,13 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `구분자만 입력으로 들어오는 경우`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { calculator(",") }
+        }
+    }
+
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
