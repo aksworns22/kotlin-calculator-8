@@ -45,7 +45,7 @@ class ApplicationTest : NsTest() {
     @Test
     fun `커스텀 구분자만 정의하는 경우`() {
         assertSimpleTest {
-            assertThat(calculator("//@\n")).isEqualTo(0)
+            assertThat(calculator("//@\\n")).isEqualTo(0)
         }
     }
 
