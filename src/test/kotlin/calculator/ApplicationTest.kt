@@ -28,6 +28,13 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `콜론을 구분자로 여러 숫자가 입력되는 경우`() {
+        assertSimpleTest {
+            assertThat(calculator("1:2:3")).isEqualTo(6)
+        }
+    }
+
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
