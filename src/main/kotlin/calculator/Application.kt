@@ -4,7 +4,7 @@ fun calculator(input: String): Int {
     if (input.isEmpty()) {
         return 0
     }
-    return 1
+    return input.toInt()
 }
 
 fun main() {
