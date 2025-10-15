@@ -5,7 +5,13 @@ fun parser(input: String): List<Int> {
         return listOf()
     }
     val rawNumbers: List<String> = input.split(",", ":")
-    return rawNumbers.map { it.toInt() }
+    val cleanedNumbers: MutableList<Int> = mutableListOf()
+    for (number in rawNumbers) {
+        if (number.isNotEmpty()) {
+            cleanedNumbers.add(number.toInt())
+        }
+    }
+    return cleanedNumbers
 }
 
 fun calculator(input: String): Int {
