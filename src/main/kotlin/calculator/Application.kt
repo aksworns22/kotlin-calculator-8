@@ -1,10 +1,16 @@
 package calculator
 
-fun calculator(input: String): Int {
+fun parser(input: String): List<Int> {
     if (input.isEmpty()) {
-        return 0
+        return listOf()
     }
-    return input.toInt()
+    val rawNumbers: List<String> = input.split(",")
+    return rawNumbers.map { it.toInt() }
+}
+
+fun calculator(input: String): Int {
+    val numbers = parser(input)
+    return numbers.sum()
 }
 
 fun main() {
