@@ -21,6 +21,13 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `두 숫자가 쉼표를 구분자로 입력되는 경우`() {
+        assertSimpleTest {
+            assertThat(calculator("1,2")).isEqualTo(3)
+        }
+    }
+
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
