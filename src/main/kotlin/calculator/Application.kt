@@ -4,7 +4,7 @@ fun parser(input: String): List<Int> {
     if (input.isEmpty()) {
         return listOf()
     }
-    val rawNumbers: List<String> = input.split(",")
+    val rawNumbers: List<String> = input.split(",", ":")
     return rawNumbers.map { it.toInt() }
 }
 
