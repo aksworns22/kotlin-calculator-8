@@ -11,6 +11,10 @@ fun parser(input: String): List<Int> {
             cleanedNumbers.add(number.toInt())
         }
     }
+    // 구분자만 입력받은 경우
+    if (cleanedNumbers.isEmpty()) {
+        throw IllegalArgumentException()
+    }
     return cleanedNumbers
 }
 
