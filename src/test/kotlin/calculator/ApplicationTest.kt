@@ -8,11 +8,19 @@ import org.junit.jupiter.api.assertThrows
 
 class ApplicationTest : NsTest() {
     @Test
-    fun`빈 문자열이 들어오는 경우`() {
+    fun `빈 문자열이 들어오는 경우`() {
         assertSimpleTest {
             assertThat(calculator("")).isEqualTo(0)
         }
     }
+
+    @Test
+    fun `단일 숫자가 입력으로 들어오는 경우`() {
+        assertSimpleTest {
+            assertThat(calculator("1")).isEqualTo(1)
+        }
+    }
+
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
