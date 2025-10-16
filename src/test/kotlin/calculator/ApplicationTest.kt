@@ -54,6 +54,14 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `숫자 합산 테스트`() {
+        val parsedOutput = listOf<Int>(1, 2)
+        assertSimpleTest {
+            assertThat(calculator(parsedOutput)).isEqualTo(3)
+        }
+    }
+
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
