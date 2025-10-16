@@ -9,43 +9,48 @@ import org.junit.jupiter.api.assertThrows
 class ApplicationTest : NsTest() {
     @Test
     fun `빈 문자열이 들어오는 경우`() {
+        val answer = listOf<Int>()
         assertSimpleTest {
-            assertThat(calculator("")).isEqualTo(0)
+            assertThat(parser("")).isEqualTo(answer)
         }
     }
 
     @Test
     fun `단일 숫자가 입력으로 들어오는 경우`() {
+        val answer = listOf<Int>(1)
         assertSimpleTest {
-            assertThat(calculator("1")).isEqualTo(1)
+            assertThat(parser("1")).isEqualTo(answer)
         }
     }
 
     @Test
     fun `두 숫자가 쉼표를 구분자로 입력되는 경우`() {
+        val answer = listOf<Int>(1, 2)
         assertSimpleTest {
-            assertThat(calculator("1,2")).isEqualTo(3)
+            assertThat(parser("1,2")).isEqualTo(answer)
         }
     }
 
     @Test
     fun `콜론을 구분자로 여러 숫자가 입력되는 경우`() {
+        val answer = listOf<Int>(1, 2, 3)
         assertSimpleTest {
-            assertThat(calculator("1:2:3")).isEqualTo(6)
+            assertThat(parser("1:2:3")).isEqualTo(answer)
         }
     }
 
     @Test
     fun `구분자만 입력으로 들어오는 경우`() {
         assertSimpleTest {
-            assertThrows<IllegalArgumentException> { calculator(",") }
+            assertThrows<IllegalArgumentException> { parser(",") }
         }
     }
 
     @Test
     fun `커스텀 구분자만 정의하는 경우`() {
+        val answer = listOf<Int>()
         assertSimpleTest {
-            assertThat(calculator("//@\\n")).isEqualTo(0)
+            assertThat(parser("//@\\n")).isEqualTo(answer)
         }
     }
 
