@@ -50,6 +50,13 @@ class ApplicationTest : NsTest() {
     }
 
     @Test
+    fun `음수를 입력받는 경우`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { PositiveNumbers(listOf(1, -2, 3)) }
+        }
+    }
+
+    @Test
     fun `숫자 합산 테스트`() {
         val extractedNumbers = listOf<Int>(1, 2)
         assertSimpleTest {
