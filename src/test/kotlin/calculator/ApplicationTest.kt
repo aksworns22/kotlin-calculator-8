@@ -27,7 +27,6 @@ class ApplicationTest : NsTest() {
 
     @Test
     fun `여러 숫자가 입력되는 경우`() {
-        val answer = listOf<Int>(1, 2, 3)
         assertSimpleTest {
             assertThat(extractNumbers("1,2")).isEqualTo(listOf(1, 2))
             assertThat(extractNumbers("1:2:3")).isEqualTo(listOf(1, 2, 3))
