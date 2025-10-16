@@ -1,6 +1,16 @@
 package calculator
 
 data class SeparatedInput(val customDelimiter: String?, val content: String)
+class PositiveNumbers {
+    val numbers: List<Int>
+
+    constructor(numbers: List<Int>) {
+        for (number in numbers) {
+            if (number < 0) throw IllegalArgumentException()
+        }
+        this.numbers = numbers
+    }
+}
 
 fun getCustomDelimiter(input: String): String? {
     if (input.length < 5) return null
