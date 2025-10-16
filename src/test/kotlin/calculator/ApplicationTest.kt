@@ -12,6 +12,7 @@ class ApplicationTest : NsTest() {
         val answer = listOf<Int>()
         assertSimpleTest {
             assertThat(parser("")).isEqualTo(answer)
+            assertThat(parser("//@\\n")).isEqualTo(answer)
         }
     }
 
@@ -20,6 +21,7 @@ class ApplicationTest : NsTest() {
         val answer = listOf<Int>(1)
         assertSimpleTest {
             assertThat(parser("1")).isEqualTo(answer)
+            assertThat(parser("//;\\n1")).isEqualTo(answer)
         }
     }
 
@@ -28,6 +30,7 @@ class ApplicationTest : NsTest() {
         val answer = listOf<Int>(1, 2)
         assertSimpleTest {
             assertThat(parser("1,2")).isEqualTo(answer)
+            assertThat(parser("//@\\n1,2")).isEqualTo(answer)
         }
     }
 
@@ -36,6 +39,7 @@ class ApplicationTest : NsTest() {
         val answer = listOf<Int>(1, 2, 3)
         assertSimpleTest {
             assertThat(parser("1:2:3")).isEqualTo(answer)
+            assertThat(parser("//@\\n1,2,3")).isEqualTo(answer)
         }
     }
 
@@ -43,14 +47,7 @@ class ApplicationTest : NsTest() {
     fun `구분자만 입력으로 들어오는 경우`() {
         assertSimpleTest {
             assertThrows<IllegalArgumentException> { parser(",") }
-        }
-    }
-
-    @Test
-    fun `커스텀 구분자만 정의하는 경우`() {
-        val answer = listOf<Int>()
-        assertSimpleTest {
-            assertThat(parser("//@\\n")).isEqualTo(answer)
+            assertThrows<IllegalArgumentException> { parser("//@\\n,") }
         }
     }
 
