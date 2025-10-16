@@ -24,9 +24,15 @@ fun parser(input: String): List<Int> {
     }
 
     if (hasCustomDelimiter) {
-        val rawNumbers: List<String> = input.drop(5).split(*delimiters)
+        val validInput: String = input.drop(5)
+        if (validInput.isEmpty()) {
+            return listOf()
+        }
+        if (!validInput[0].isDigit()) {
+            throw IllegalArgumentException()
+        }
         val cleanedNumbers: MutableList<Int> = mutableListOf()
-        for (number in rawNumbers) {
+        for (number in validInput.split(*delimiters)) {
             if (number.isNotEmpty()) {
                 cleanedNumbers.add(number.toInt())
             }
