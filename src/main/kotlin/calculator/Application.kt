@@ -48,8 +48,7 @@ fun parser(input: String): List<Int> {
     }
 }
 
-fun calculator(input: String): Int {
-    val numbers = parser(input)
+fun calculator(numbers: List<Int>): Int {
     return numbers.sum()
 }
 
