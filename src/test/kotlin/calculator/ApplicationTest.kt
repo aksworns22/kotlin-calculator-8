@@ -31,7 +31,7 @@ class ApplicationTest : NsTest() {
         assertSimpleTest {
             assertThat(extractNumbers("1,2")).isEqualTo(listOf(1, 2))
             assertThat(extractNumbers("1:2:3")).isEqualTo(listOf(1, 2, 3))
-            assertThat(extractNumbers("//#\\n1,2,3,4")).isEqualTo(listOf(1, 2, 3, 4))
+            assertThat(extractNumbers("//#\\n1,2#3:4")).isEqualTo(listOf(1, 2, 3, 4))
         }
     }
 
