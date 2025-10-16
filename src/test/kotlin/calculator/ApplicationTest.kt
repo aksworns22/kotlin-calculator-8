@@ -26,20 +26,12 @@ class ApplicationTest : NsTest() {
     }
 
     @Test
-    fun `두 숫자가 쉼표를 구분자로 입력되는 경우`() {
-        val answer = listOf<Int>(1, 2)
-        assertSimpleTest {
-            assertThat(extractNumbers("1,2")).isEqualTo(answer)
-            assertThat(extractNumbers("//@\\n1,2")).isEqualTo(answer)
-        }
-    }
-
-    @Test
-    fun `콜론을 구분자로 여러 숫자가 입력되는 경우`() {
+    fun `여러 숫자가 입력되는 경우`() {
         val answer = listOf<Int>(1, 2, 3)
         assertSimpleTest {
-            assertThat(extractNumbers("1:2:3")).isEqualTo(answer)
-            assertThat(extractNumbers("//@\\n1,2,3")).isEqualTo(answer)
+            assertThat(extractNumbers("1,2")).isEqualTo(listOf(1, 2))
+            assertThat(extractNumbers("1:2:3")).isEqualTo(listOf(1, 2, 3))
+            assertThat(extractNumbers("//#\\n1,2,3,4")).isEqualTo(listOf(1, 2, 3, 4))
         }
     }
 
