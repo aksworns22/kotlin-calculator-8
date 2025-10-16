@@ -44,6 +44,13 @@ class ApplicationTest : NsTest() {
     }
 
     @Test
+    fun `두 글자 이상의 문자열을 커스텀 구분자로 사용하는 경우`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { getCustomDelimiter("//ab\\n") }
+        }
+    }
+
+    @Test
     fun `숫자 합산 테스트`() {
         val extractedNumbers = listOf<Int>(1, 2)
         assertSimpleTest {
