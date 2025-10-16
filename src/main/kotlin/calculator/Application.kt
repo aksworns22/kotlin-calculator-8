@@ -8,7 +8,7 @@ fun getCustomDelimiter(input: String): String? {
         return null
     }
     if (input.substring(3, 5) != "\\n") {
-        return null
+        throw IllegalArgumentException()
     }
     return input[2].toString()
 }
