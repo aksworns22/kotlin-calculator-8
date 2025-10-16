@@ -11,8 +11,8 @@ class ApplicationTest : NsTest() {
     fun `빈 문자열이 들어오는 경우`() {
         val answer = listOf<Int>()
         assertSimpleTest {
-            assertThat(parser("")).isEqualTo(answer)
-            assertThat(parser("//@\\n")).isEqualTo(answer)
+            assertThat(extractNumbers("")).isEqualTo(answer)
+            assertThat(extractNumbers("//@\\n")).isEqualTo(answer)
         }
     }
 
@@ -20,8 +20,8 @@ class ApplicationTest : NsTest() {
     fun `단일 숫자가 입력으로 들어오는 경우`() {
         val answer = listOf<Int>(1)
         assertSimpleTest {
-            assertThat(parser("1")).isEqualTo(answer)
-            assertThat(parser("//;\\n1")).isEqualTo(answer)
+            assertThat(extractNumbers("1")).isEqualTo(answer)
+            assertThat(extractNumbers("//;\\n1")).isEqualTo(answer)
         }
     }
 
@@ -29,8 +29,8 @@ class ApplicationTest : NsTest() {
     fun `두 숫자가 쉼표를 구분자로 입력되는 경우`() {
         val answer = listOf<Int>(1, 2)
         assertSimpleTest {
-            assertThat(parser("1,2")).isEqualTo(answer)
-            assertThat(parser("//@\\n1,2")).isEqualTo(answer)
+            assertThat(extractNumbers("1,2")).isEqualTo(answer)
+            assertThat(extractNumbers("//@\\n1,2")).isEqualTo(answer)
         }
     }
 
@@ -38,24 +38,24 @@ class ApplicationTest : NsTest() {
     fun `콜론을 구분자로 여러 숫자가 입력되는 경우`() {
         val answer = listOf<Int>(1, 2, 3)
         assertSimpleTest {
-            assertThat(parser("1:2:3")).isEqualTo(answer)
-            assertThat(parser("//@\\n1,2,3")).isEqualTo(answer)
+            assertThat(extractNumbers("1:2:3")).isEqualTo(answer)
+            assertThat(extractNumbers("//@\\n1,2,3")).isEqualTo(answer)
         }
     }
 
     @Test
     fun `구분자만 입력으로 들어오는 경우`() {
         assertSimpleTest {
-            assertThrows<IllegalArgumentException> { parser(",") }
-            assertThrows<IllegalArgumentException> { parser("//@\\n,") }
+            assertThrows<IllegalArgumentException> { extractNumbers(",") }
+            assertThrows<IllegalArgumentException> { extractNumbers("//@\\n,") }
         }
     }
 
     @Test
     fun `숫자 합산 테스트`() {
-        val parsedOutput = listOf<Int>(1, 2)
+        val extractedNumbers = listOf<Int>(1, 2)
         assertSimpleTest {
-            assertThat(calculator(parsedOutput)).isEqualTo(3)
+            assertThat(addNumbers(extractedNumbers)).isEqualTo(3)
         }
     }
 

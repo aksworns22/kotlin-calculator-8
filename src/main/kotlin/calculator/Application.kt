@@ -1,60 +1,54 @@
 package calculator
 
-fun isValidCustomDelimiter(input: String): Boolean {
-    if (input.length < 5) return false
+data class SeparatedInput(val customDelimiter: String?, val content: String)
+
+fun getCustomDelimiter(input: String): String? {
+    if (input.length < 5) return null
     if (input.take(2) != "//") {
-        return false
+        return null
     }
     if (input.substring(3, 5) != "\\n") {
-        return false
+        return null
     }
-    return true
+    return input[2].toString()
 }
 
-fun parser(input: String): List<Int> {
+fun separateDelimiterAndContent(input: String): SeparatedInput {
     if (input.isEmpty()) {
-        return listOf()
+        return SeparatedInput(null, input)
     }
-    var hasCustomDelimiter: Boolean = false
-    val delimiters = if (isValidCustomDelimiter(input)) {
-        hasCustomDelimiter = true
-        arrayOf(",", ":", "@")
+    val customDelimiter = getCustomDelimiter(input)
+    return if (customDelimiter == null) {
+        SeparatedInput(null, input)
+    } else {
+        SeparatedInput(customDelimiter, input.drop(5))
+    }
+}
+
+fun extractNumbers(input: String): List<Int> {
+    val separatedInput = separateDelimiterAndContent(input)
+    val content: String = separatedInput.content
+    val delimiters = if (separatedInput.customDelimiter != null) {
+        arrayOf(",", ":", separatedInput.customDelimiter)
     } else {
         arrayOf(",", ":")
     }
-
-    if (hasCustomDelimiter) {
-        val validInput: String = input.drop(5)
-        if (validInput.isEmpty()) {
-            return listOf()
-        }
-        if (!validInput[0].isDigit()) {
-            throw IllegalArgumentException()
-        }
-        val cleanedNumbers: MutableList<Int> = mutableListOf()
-        for (number in validInput.split(*delimiters)) {
-            if (number.isNotEmpty()) {
-                cleanedNumbers.add(number.toInt())
-            }
-        }
-        return cleanedNumbers
-    } else {
-        val rawNumbers: List<String> = input.split(*delimiters)
-        val cleanedNumbers: MutableList<Int> = mutableListOf()
-        for (number in rawNumbers) {
-            if (number.isNotEmpty()) {
-                cleanedNumbers.add(number.toInt())
-            }
-        }
-        // 구분자만 입력받은 경우
-        if (cleanedNumbers.isEmpty()) {
-            throw IllegalArgumentException()
-        }
-        return cleanedNumbers
+    if (content.isEmpty()) {
+        return listOf()
     }
+    if (!content[0].isDigit()) {
+        throw IllegalArgumentException()
+    }
+    val numbers: MutableList<Int> = mutableListOf()
+    for (number in content.split(*delimiters)) {
+        if (number.isNotEmpty()) {
+            numbers.add(number.toInt())
+        }
+    }
+    return numbers
 }
 
-fun calculator(numbers: List<Int>): Int {
+fun addNumbers(numbers: List<Int>): Int {
     return numbers.sum()
 }
 
