@@ -94,6 +94,7 @@ class StructuredInput {
                 if (!character.isDigit()) throw IllegalArgumentException()
                 else isMustBeNumber = false
             } else { // delimiters
+                if (character.isDigit()) continue
                 if (!delimiters.getDelimiters().contains(character.toString())) throw IllegalArgumentException()
                 isMustBeNumber = true
             }

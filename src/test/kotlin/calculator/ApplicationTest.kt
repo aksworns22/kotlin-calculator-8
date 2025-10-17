@@ -102,6 +102,14 @@ class ApplicationTest : NsTest() {
             assertThrows<IllegalArgumentException> { StructuredInput("//:\\n1:") }
         }
     }
+
+    @Test
+    fun `연속된 숫자를 입력받는 경우`() {
+        val answer = PositiveNumbers(listOf(12, 34, 56, 78))
+        assertSimpleTest {
+            assertThat(StructuredInput("12,34,56,78").extractPositiveNumbers()).isEqualTo(answer)
+        }
+    }
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
