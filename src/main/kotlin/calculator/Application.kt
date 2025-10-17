@@ -1,5 +1,7 @@
 package calculator
 
+import camp.nextstep.edu.missionutils.Console
+
 class Delimiter {
     val defaultDelimiters = arrayOf(",", ":")
     val customDelimiter: String?
@@ -107,5 +109,8 @@ class StructuredInput {
 }
 
 fun main() {
-    // TODO: 프로그램 구현
+    val input = Console.readLine()
+    val structuredInput = StructuredInput(input)
+    val positiveNumbers = structuredInput.extractPositiveNumbers()
+    println("결과 : ${positiveNumbers.sum()}")
 }
