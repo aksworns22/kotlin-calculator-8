@@ -27,18 +27,46 @@ class PositiveNumbers {
     }
 }
 
-fun isValidContent(delimiters: Array<String>, content: String): String {
-    var isMustBeNumber = true
-    for (character in content) {
-        if (isMustBeNumber) {
-            if (!character.isDigit()) throw IllegalArgumentException()
-            else isMustBeNumber = false
-        } else { // delimiters
-            if (!delimiters.contains(character.toString())) throw IllegalArgumentException()
-            isMustBeNumber = true
+class StructuredInput {
+    val delimiters: Array<String>
+    val content: String
+
+    constructor(input: String) {
+        val separatedInput = separateDelimiterAndContent(input)
+        this.content = separatedInput.content
+        this.delimiters = if (separatedInput.customDelimiter != null) {
+            arrayOf(",", ":", separatedInput.customDelimiter)
+        } else {
+            arrayOf(",", ":")
+        }
+        isValidContent(delimiters, content)
+    }
+
+    private fun isValidContent(delimiters: Array<String>, content: String): String {
+        var isMustBeNumber = true
+        for (character in content) {
+            if (isMustBeNumber) {
+                if (!character.isDigit()) throw IllegalArgumentException()
+                else isMustBeNumber = false
+            } else { // delimiters
+                if (!delimiters.contains(character.toString())) throw IllegalArgumentException()
+                isMustBeNumber = true
+            }
+        }
+        return content
+    }
+
+    private fun separateDelimiterAndContent(input: String): SeparatedInput {
+        if (input.isEmpty()) {
+            return SeparatedInput(null, input)
+        }
+        val customDelimiter = getCustomDelimiter(input)
+        return if (customDelimiter == null) {
+            SeparatedInput(null, input)
+        } else {
+            SeparatedInput(customDelimiter, input.drop(5))
         }
     }
-    return content
 }
 
 fun getCustomDelimiter(input: String): String? {
@@ -52,34 +80,16 @@ fun getCustomDelimiter(input: String): String? {
     return input[2].toString()
 }
 
-fun separateDelimiterAndContent(input: String): SeparatedInput {
-    if (input.isEmpty()) {
-        return SeparatedInput(null, input)
-    }
-    val customDelimiter = getCustomDelimiter(input)
-    return if (customDelimiter == null) {
-        SeparatedInput(null, input)
-    } else {
-        SeparatedInput(customDelimiter, input.drop(5))
-    }
-}
-
 fun extractNumbers(input: String): PositiveNumbers {
-    val separatedInput = separateDelimiterAndContent(input)
-    val content: String = separatedInput.content
-    val delimiters = if (separatedInput.customDelimiter != null) {
-        arrayOf(",", ":", separatedInput.customDelimiter)
-    } else {
-        arrayOf(",", ":")
-    }
-    if (content.isEmpty()) {
+    val structuredContent = StructuredInput(input)
+    if (structuredContent.content.isEmpty()) {
         return PositiveNumbers(listOf())
     }
-    if (!content[0].isDigit()) {
+    if (!structuredContent.content[0].isDigit()) {
         throw IllegalArgumentException()
     }
     val numbers: MutableList<Int> = mutableListOf()
-    for (number in content.split(*delimiters)) {
+    for (number in structuredContent.content.split(*structuredContent.delimiters)) {
         if (number.isNotEmpty()) {
             numbers.add(number.toInt())
         }
