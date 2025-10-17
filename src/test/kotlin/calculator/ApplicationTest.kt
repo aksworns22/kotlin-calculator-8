@@ -18,7 +18,7 @@ class ApplicationTest : NsTest() {
 
     @Test
     fun `단일 숫자가 입력으로 들어오는 경우`() {
-        val answer = listOf<Int>(1)
+        val answer = listOf(1)
         assertSimpleTest {
             assertThat(extractNumbers("1")).isEqualTo(answer)
             assertThat(extractNumbers("//;\\n1")).isEqualTo(answer)
@@ -58,7 +58,7 @@ class ApplicationTest : NsTest() {
 
     @Test
     fun `숫자 합산 테스트`() {
-        val extractedNumbers = listOf<Int>(1, 2)
+        val extractedNumbers = listOf(1, 2)
         assertSimpleTest {
             assertThat(addNumbers(extractedNumbers)).isEqualTo(3)
         }
