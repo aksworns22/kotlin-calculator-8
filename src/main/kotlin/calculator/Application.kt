@@ -21,6 +21,10 @@ class PositiveNumbers {
     override fun hashCode(): Int {
         return numbers.hashCode()
     }
+
+    fun sum(): Int {
+        return numbers.sum()
+    }
 }
 
 fun getCustomDelimiter(input: String): String? {
@@ -68,11 +72,6 @@ fun extractNumbers(input: String): PositiveNumbers {
     }
     return PositiveNumbers(numbers)
 }
-
-fun addNumbers(numbers: List<Int>): Int {
-    return numbers.sum()
-}
-
 
 fun main() {
     // TODO: 프로그램 구현

@@ -58,9 +58,9 @@ class ApplicationTest : NsTest() {
 
     @Test
     fun `숫자 합산 테스트`() {
-        val extractedNumbers = listOf(1, 2)
+        val positiveNumbers = PositiveNumbers(listOf(1, 2))
         assertSimpleTest {
-            assertThat(addNumbers(extractedNumbers)).isEqualTo(3)
+            assertThat(positiveNumbers.sum()).isEqualTo(3)
         }
     }
 
