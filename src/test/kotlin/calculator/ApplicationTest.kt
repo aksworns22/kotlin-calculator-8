@@ -9,7 +9,7 @@ import org.junit.jupiter.api.assertThrows
 class ApplicationTest : NsTest() {
     @Test
     fun `빈 문자열이 들어오는 경우`() {
-        val answer = listOf<Int>()
+        val answer = PositiveNumbers(listOf())
         assertSimpleTest {
             assertThat(extractNumbers("")).isEqualTo(answer)
             assertThat(extractNumbers("//@\\n")).isEqualTo(answer)
@@ -18,7 +18,7 @@ class ApplicationTest : NsTest() {
 
     @Test
     fun `단일 숫자가 입력으로 들어오는 경우`() {
-        val answer = listOf(1)
+        val answer = PositiveNumbers(listOf(1))
         assertSimpleTest {
             assertThat(extractNumbers("1")).isEqualTo(answer)
             assertThat(extractNumbers("//;\\n1")).isEqualTo(answer)
@@ -28,9 +28,9 @@ class ApplicationTest : NsTest() {
     @Test
     fun `여러 숫자가 입력되는 경우`() {
         assertSimpleTest {
-            assertThat(extractNumbers("1,2")).isEqualTo(listOf(1, 2))
-            assertThat(extractNumbers("1:2:3")).isEqualTo(listOf(1, 2, 3))
-            assertThat(extractNumbers("//#\\n1,2#3:4")).isEqualTo(listOf(1, 2, 3, 4))
+            assertThat(extractNumbers("1,2")).isEqualTo(PositiveNumbers(listOf(1, 2)))
+            assertThat(extractNumbers("1:2:3")).isEqualTo(PositiveNumbers(listOf(1, 2, 3)))
+            assertThat(extractNumbers("//#\\n1,2#3:4")).isEqualTo(PositiveNumbers(listOf(1, 2, 3, 4)))
         }
     }
 

@@ -10,6 +10,17 @@ class PositiveNumbers {
         }
         this.numbers = numbers
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is PositiveNumbers) {
+            return other.numbers == this.numbers
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return numbers.hashCode()
+    }
 }
 
 fun getCustomDelimiter(input: String): String? {
@@ -35,7 +46,7 @@ fun separateDelimiterAndContent(input: String): SeparatedInput {
     }
 }
 
-fun extractNumbers(input: String): List<Int> {
+fun extractNumbers(input: String): PositiveNumbers {
     val separatedInput = separateDelimiterAndContent(input)
     val content: String = separatedInput.content
     val delimiters = if (separatedInput.customDelimiter != null) {
@@ -44,7 +55,7 @@ fun extractNumbers(input: String): List<Int> {
         arrayOf(",", ":")
     }
     if (content.isEmpty()) {
-        return listOf()
+        return PositiveNumbers(listOf())
     }
     if (!content[0].isDigit()) {
         throw IllegalArgumentException()
@@ -55,12 +66,13 @@ fun extractNumbers(input: String): List<Int> {
             numbers.add(number.toInt())
         }
     }
-    return numbers
+    return PositiveNumbers(numbers)
 }
 
 fun addNumbers(numbers: List<Int>): Int {
     return numbers.sum()
 }
+
 
 fun main() {
     // TODO: 프로그램 구현
