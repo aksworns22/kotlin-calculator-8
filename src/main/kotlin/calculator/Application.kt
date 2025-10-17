@@ -16,6 +16,7 @@ class Delimiter {
         if (input.substring(3, 5) != "\\n") {
             throw IllegalArgumentException()
         }
+        if (input[2].isDigit()) throw IllegalArgumentException()
         this.customDelimiter = input[2].toString()
     }
 
@@ -98,9 +99,7 @@ class StructuredInput {
         }
         return content
     }
-
 }
-
 
 fun main() {
     // TODO: 프로그램 구현
