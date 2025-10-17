@@ -68,7 +68,15 @@ class ApplicationTest : NsTest() {
     fun`구분자를 연속해서 사용하는 경우 테스트`() {
         assertSimpleTest {
             assertThrows<IllegalArgumentException> { StructuredInput("12,,34") }
-            assertThrows<IllegalArgumentException> { StructuredInput("//-\n2--3") }
+            assertThrows<IllegalArgumentException> { StructuredInput("//-\\n2--3") }
+        }
+    }
+
+    @Test
+    fun `정의되지 않은 문자를 사용하는 경우 테스트`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { StructuredInput("1 2") }
+            assertThrows<IllegalArgumentException> { StructuredInput("//-\\n1-2 -3") }
         }
     }
 //    @Test
