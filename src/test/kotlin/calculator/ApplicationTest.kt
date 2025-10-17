@@ -91,7 +91,15 @@ class ApplicationTest : NsTest() {
     fun `구분자로 입력이 시작하는 경우`() {
         assertSimpleTest {
             assertThrows<IllegalArgumentException> { StructuredInput(",123") }
-            assertThrows<IllegalArgumentException> { StructuredInput("//-\n-1,2") }
+            assertThrows<IllegalArgumentException> { StructuredInput("//-\\n-1,2") }
+        }
+    }
+
+    @Test
+    fun `구분자로 입력이 끝나는 경우`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { StructuredInput("1,") }
+            assertThrows<IllegalArgumentException> { StructuredInput("//:\\n1:") }
         }
     }
 //    @Test
