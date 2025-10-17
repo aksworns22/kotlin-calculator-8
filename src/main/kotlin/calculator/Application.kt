@@ -55,6 +55,8 @@ class PositiveNumbers {
     }
 
     fun sum(): Int {
+        val result = numbers.sum()
+        if (result <= 0) throw IllegalArgumentException()
         return numbers.sum()
     }
 }
