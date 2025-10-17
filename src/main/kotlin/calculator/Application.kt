@@ -42,6 +42,19 @@ class StructuredInput {
         isValidContent(delimiters, content)
     }
 
+    fun extractPositiveNumbers(): PositiveNumbers {
+        if (content.isEmpty()) {
+            return PositiveNumbers(listOf())
+        }
+        val numbers: MutableList<Int> = mutableListOf()
+        for (number in content.split(*delimiters)) {
+            if (number.isNotEmpty()) {
+                numbers.add(number.toInt())
+            }
+        }
+        return PositiveNumbers(numbers)
+    }
+
     private fun isValidContent(delimiters: Array<String>, content: String): String {
         var isMustBeNumber = true
         for (character in content) {
@@ -78,23 +91,6 @@ fun getCustomDelimiter(input: String): String? {
         throw IllegalArgumentException()
     }
     return input[2].toString()
-}
-
-fun extractNumbers(input: String): PositiveNumbers {
-    val structuredContent = StructuredInput(input)
-    if (structuredContent.content.isEmpty()) {
-        return PositiveNumbers(listOf())
-    }
-    if (!structuredContent.content[0].isDigit()) {
-        throw IllegalArgumentException()
-    }
-    val numbers: MutableList<Int> = mutableListOf()
-    for (number in structuredContent.content.split(*structuredContent.delimiters)) {
-        if (number.isNotEmpty()) {
-            numbers.add(number.toInt())
-        }
-    }
-    return PositiveNumbers(numbers)
 }
 
 fun main() {

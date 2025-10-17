@@ -11,8 +11,8 @@ class ApplicationTest : NsTest() {
     fun `빈 문자열이 들어오는 경우`() {
         val answer = PositiveNumbers(listOf())
         assertSimpleTest {
-            assertThat(extractNumbers("")).isEqualTo(answer)
-            assertThat(extractNumbers("//@\\n")).isEqualTo(answer)
+            assertThat(StructuredInput("").extractPositiveNumbers()).isEqualTo(answer)
+            assertThat(StructuredInput("//@\\n").extractPositiveNumbers()).isEqualTo(answer)
         }
     }
 
@@ -20,25 +20,25 @@ class ApplicationTest : NsTest() {
     fun `단일 숫자가 입력으로 들어오는 경우`() {
         val answer = PositiveNumbers(listOf(1))
         assertSimpleTest {
-            assertThat(extractNumbers("1")).isEqualTo(answer)
-            assertThat(extractNumbers("//;\\n1")).isEqualTo(answer)
+            assertThat(StructuredInput("1").extractPositiveNumbers()).isEqualTo(answer)
+            assertThat(StructuredInput("//;\\n1").extractPositiveNumbers()).isEqualTo(answer)
         }
     }
 
     @Test
     fun `여러 숫자가 입력되는 경우`() {
+        val answer = PositiveNumbers(listOf(1, 2, 3, 4))
         assertSimpleTest {
-            assertThat(extractNumbers("1,2")).isEqualTo(PositiveNumbers(listOf(1, 2)))
-            assertThat(extractNumbers("1:2:3")).isEqualTo(PositiveNumbers(listOf(1, 2, 3)))
-            assertThat(extractNumbers("//-\\n1,2-3:4")).isEqualTo(PositiveNumbers(listOf(1, 2, 3, 4)))
+            assertThat(StructuredInput("1:2:3:4").extractPositiveNumbers()).isEqualTo(answer)
+            assertThat(StructuredInput("//-\\n1,2-3:4").extractPositiveNumbers()).isEqualTo(answer)
         }
     }
 
     @Test
     fun `구분자만 입력으로 들어오는 경우`() {
         assertSimpleTest {
-            assertThrows<IllegalArgumentException> { extractNumbers(",") }
-            assertThrows<IllegalArgumentException> { extractNumbers("//@\\n,") }
+            assertThrows<IllegalArgumentException> { StructuredInput(",") }
+            assertThrows<IllegalArgumentException> { StructuredInput("//@\\n,") }
         }
     }
 
