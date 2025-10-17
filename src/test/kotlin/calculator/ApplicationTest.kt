@@ -113,11 +113,13 @@ class ApplicationTest : NsTest() {
 
     @Test
     fun `결과가 최대 데이터 범위를 넘어가는 경우`() {
+        val maxValue: Long = Int.MAX_VALUE.toLong()
         assertSimpleTest {
-            assertThrows<IllegalArgumentException> { StructuredInput((Int.MAX_VALUE + 1).toString()).extractPositiveNumbers() }
-            assertThrows<IllegalArgumentException> { PositiveNumbers(listOf(Int.MAX_VALUE, 1)).sum() }
+            assertThrows<IllegalArgumentException> { StructuredInput((maxValue + 1).toString()).extractPositiveNumbers() }
+            assertThrows<IllegalArgumentException> { PositiveNumbers(listOf(maxValue.toInt(), 1)).sum() }
         }
     }
+
     @Test
     fun `커스텀 구분자 사용`() {
         assertSimpleTest {
