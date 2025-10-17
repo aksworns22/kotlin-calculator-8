@@ -86,6 +86,14 @@ class ApplicationTest : NsTest() {
             assertThrows<IllegalArgumentException> { StructuredInput("//2\\n123") }
         }
     }
+
+    @Test
+    fun `구분자로 입력이 시작하는 경우`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { StructuredInput(",123") }
+            assertThrows<IllegalArgumentException> { StructuredInput("//-\n-1,2") }
+        }
+    }
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
