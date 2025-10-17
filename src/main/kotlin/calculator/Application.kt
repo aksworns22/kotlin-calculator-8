@@ -1,6 +1,35 @@
 package calculator
 
-data class SeparatedInput(val customDelimiter: String?, val content: String)
+data class SeparatedInput(val customDelimiter: Delimiter?, val content: String)
+
+class Delimiter {
+    val defaultDelimiters = arrayOf(",", ":")
+    val customDelimiter: String?
+
+    constructor(input: String) {
+        if (input.length < 5) {
+            customDelimiter = null
+            return
+        }
+        if (input.take(2) != "//") {
+            customDelimiter = null
+            return
+        }
+        if (input.substring(3, 5) != "\\n") {
+            throw IllegalArgumentException()
+        }
+        this.customDelimiter = input[2].toString()
+    }
+
+    fun getDelimiters(): Array<String> {
+        return if (customDelimiter != null) {
+            arrayOf(*defaultDelimiters, customDelimiter)
+        } else {
+            defaultDelimiters
+        }
+    }
+}
+
 class PositiveNumbers {
     val numbers: List<Int>
 
@@ -28,17 +57,13 @@ class PositiveNumbers {
 }
 
 class StructuredInput {
-    val delimiters: Array<String>
+    val delimiters: Delimiter
     val content: String
 
     constructor(input: String) {
         val separatedInput = separateDelimiterAndContent(input)
         this.content = separatedInput.content
-        this.delimiters = if (separatedInput.customDelimiter != null) {
-            arrayOf(",", ":", separatedInput.customDelimiter)
-        } else {
-            arrayOf(",", ":")
-        }
+        this.delimiters = Delimiter(input)
         isValidContent(delimiters, content)
     }
 
@@ -47,7 +72,7 @@ class StructuredInput {
             return PositiveNumbers(listOf())
         }
         val numbers: MutableList<Int> = mutableListOf()
-        for (number in content.split(*delimiters)) {
+        for (number in content.split(*(delimiters.getDelimiters()))) {
             if (number.isNotEmpty()) {
                 numbers.add(number.toInt())
             }
@@ -55,14 +80,14 @@ class StructuredInput {
         return PositiveNumbers(numbers)
     }
 
-    private fun isValidContent(delimiters: Array<String>, content: String): String {
+    private fun isValidContent(delimiters: Delimiter, content: String): String {
         var isMustBeNumber = true
         for (character in content) {
             if (isMustBeNumber) {
                 if (!character.isDigit()) throw IllegalArgumentException()
                 else isMustBeNumber = false
             } else { // delimiters
-                if (!delimiters.contains(character.toString())) throw IllegalArgumentException()
+                if (!delimiters.getDelimiters().contains(character.toString())) throw IllegalArgumentException()
                 isMustBeNumber = true
             }
         }
@@ -73,8 +98,8 @@ class StructuredInput {
         if (input.isEmpty()) {
             return SeparatedInput(null, input)
         }
-        val customDelimiter = getCustomDelimiter(input)
-        return if (customDelimiter == null) {
+        val customDelimiter = Delimiter(input)
+        return if (customDelimiter.customDelimiter == null) {
             SeparatedInput(null, input)
         } else {
             SeparatedInput(customDelimiter, input.drop(5))
@@ -82,16 +107,6 @@ class StructuredInput {
     }
 }
 
-fun getCustomDelimiter(input: String): String? {
-    if (input.length < 5) return null
-    if (input.take(2) != "//") {
-        return null
-    }
-    if (input.substring(3, 5) != "\\n") {
-        throw IllegalArgumentException()
-    }
-    return input[2].toString()
-}
 
 fun main() {
     // TODO: 프로그램 구현

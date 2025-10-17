@@ -45,7 +45,7 @@ class ApplicationTest : NsTest() {
     @Test
     fun `두 글자 이상의 문자열을 커스텀 구분자로 사용하는 경우`() {
         assertSimpleTest {
-            assertThrows<IllegalArgumentException> { getCustomDelimiter("//ab\\n") }
+            assertThrows<IllegalArgumentException> { Delimiter("//ab\\n") }
         }
     }
 
