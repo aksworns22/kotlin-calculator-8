@@ -64,6 +64,13 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun`구분자를 연속해서 사용하는 경우 테스트`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { isValidContent(arrayOf(":", ","), "12,,34") }
+            assertThrows<IllegalArgumentException> { isValidContent(arrayOf(":", ",", "-"), "2--3") }
+        }
+    }
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
