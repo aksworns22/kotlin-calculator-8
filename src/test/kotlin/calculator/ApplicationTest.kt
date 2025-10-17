@@ -79,6 +79,13 @@ class ApplicationTest : NsTest() {
             assertThrows<IllegalArgumentException> { StructuredInput("//-\\n1-2 -3") }
         }
     }
+
+    @Test
+    fun `숫자를 커스텀 구분자로 사용하는 경우 테스트`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { StructuredInput("//2\\n123") }
+        }
+    }
 //    @Test
 //    fun `커스텀 구분자 사용`() {
 //        assertSimpleTest {
