@@ -27,6 +27,20 @@ class PositiveNumbers {
     }
 }
 
+fun isValidContent(delimiters: Array<String>, content: String): String {
+    var isMustBeNumber = true
+    for (character in content) {
+        if (isMustBeNumber) {
+            if (!character.isDigit()) throw IllegalArgumentException()
+            else isMustBeNumber = false
+        } else { // delimiters
+            if (!delimiters.contains(character.toString())) throw IllegalArgumentException()
+            isMustBeNumber = true
+        }
+    }
+    return content
+}
+
 fun getCustomDelimiter(input: String): String? {
     if (input.length < 5) return null
     if (input.take(2) != "//") {
