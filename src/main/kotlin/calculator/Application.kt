@@ -1,7 +1,5 @@
 package calculator
 
-data class SeparatedInput(val customDelimiter: Delimiter?, val content: String)
-
 class Delimiter {
     val defaultDelimiters = arrayOf(",", ":")
     val customDelimiter: String?
@@ -27,6 +25,10 @@ class Delimiter {
         } else {
             defaultDelimiters
         }
+    }
+
+    fun hasCustomDelimiter(): Boolean {
+        return customDelimiter != null
     }
 }
 
@@ -61,9 +63,12 @@ class StructuredInput {
     val content: String
 
     constructor(input: String) {
-        val separatedInput = separateDelimiterAndContent(input)
-        this.content = separatedInput.content
         this.delimiters = Delimiter(input)
+        if (delimiters.hasCustomDelimiter()) {
+            this.content = input.drop(5)
+        } else {
+            this.content = input
+        }
         isValidContent(delimiters, content)
     }
 
@@ -94,17 +99,6 @@ class StructuredInput {
         return content
     }
 
-    private fun separateDelimiterAndContent(input: String): SeparatedInput {
-        if (input.isEmpty()) {
-            return SeparatedInput(null, input)
-        }
-        val customDelimiter = Delimiter(input)
-        return if (customDelimiter.customDelimiter == null) {
-            SeparatedInput(null, input)
-        } else {
-            SeparatedInput(customDelimiter, input.drop(5))
-        }
-    }
 }
 
 
