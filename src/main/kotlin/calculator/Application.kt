@@ -87,6 +87,7 @@ class StructuredInput {
     }
 
     private fun isValidContent(delimiters: Delimiter, content: String): String {
+        if (content.isEmpty()) return content
         var isMustBeNumber = true
         for (character in content) {
             if (isMustBeNumber) {
@@ -97,6 +98,7 @@ class StructuredInput {
                 isMustBeNumber = true
             }
         }
+        if (isMustBeNumber) throw IllegalArgumentException() // 마지막이 구분자로 끝나는 경우
         return content
     }
 }
