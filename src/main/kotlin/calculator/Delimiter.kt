@@ -14,9 +14,9 @@ class Delimiter {
             return
         }
         if (input.substring(3, 5) != "\\n") {
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("올바르지 않은 커스텀 구분자 문법을 사용함")
         }
-        if (input[2].isDigit()) throw IllegalArgumentException()
+        if (input[2].isDigit()) throw IllegalArgumentException("숫자는 커스텀 구분자로 사용 불가능함")
         this.customDelimiter = input[2].toString()
     }
 

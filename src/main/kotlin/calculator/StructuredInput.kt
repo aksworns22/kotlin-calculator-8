@@ -30,15 +30,17 @@ class StructuredInput {
         var isMustBeNumber = true
         for (character in content) {
             if (isMustBeNumber) {
-                if (!character.isDigit()) throw IllegalArgumentException()
+                if (!character.isDigit()) throw IllegalArgumentException("잘못된 문법을 사용함")
                 else isMustBeNumber = false
             } else { // delimiters
                 if (character.isDigit()) continue
-                if (!delimiters.getDelimiters().contains(character.toString())) throw IllegalArgumentException()
+                if (!delimiters.getDelimiters().contains(character.toString())) {
+                    throw IllegalArgumentException("정의되지 않은 문자는 사용할 수 없음")
+                }
                 isMustBeNumber = true
             }
         }
-        if (isMustBeNumber) throw IllegalArgumentException() // 마지막이 구분자로 끝나는 경우
+        if (isMustBeNumber) throw IllegalArgumentException("구분자로 입력을 끝낼 수 없음")
         return content
     }
 }
