@@ -1,11 +1,11 @@
 package calculator
 
 class StructuredInput {
-    val delimiters: Delimiter
+    val delimiters: Delimiters
     val content: String
 
     constructor(input: String) {
-        this.delimiters = Delimiter(input)
+        this.delimiters = Delimiters(input)
         if (delimiters.hasCustomDelimiter()) {
             this.content = input.drop(5)
         } else {
@@ -25,7 +25,7 @@ class StructuredInput {
         return PositiveNumbers(numbers)
     }
 
-    private fun isValidContent(delimiters: Delimiter, content: String): String {
+    private fun isValidContent(delimiters: Delimiters, content: String): String {
         if (content.isEmpty()) return content
         var isMustBeNumber = true
         for (character in content) {

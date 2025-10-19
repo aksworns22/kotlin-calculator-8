@@ -1,6 +1,6 @@
 package calculator
 
-class Delimiter {
+class Delimiters {
     val defaultDelimiters = arrayOf(",", ":")
     val customDelimiter: String?
 
