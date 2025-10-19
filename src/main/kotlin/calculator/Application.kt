@@ -83,9 +83,7 @@ class StructuredInput {
         }
         val numbers: MutableList<Int> = mutableListOf()
         for (number in content.split(*(delimiters.getDelimiters()))) {
-            if (number.isNotEmpty()) {
-                numbers.add(number.toInt())
-            }
+            numbers.add(number.toInt())
         }
         return PositiveNumbers(numbers)
     }
@@ -109,6 +107,7 @@ class StructuredInput {
 }
 
 fun main() {
+    println("덧셈할 문자열을 입력해 주세요.")
     val input = Console.readLine()
     val structuredInput = StructuredInput(input)
     val positiveNumbers = structuredInput.extractPositiveNumbers()
