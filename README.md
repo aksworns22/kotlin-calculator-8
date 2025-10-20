@@ -254,13 +254,13 @@
     @Test
     fun `숫자를 커스텀 구분자로 사용하는 경우`() {
         assertSimpleTest {
-            assertThrows<IllegalArgumentException> { StructuredInput("//2\\n123") }
+            assertThrows<IllegalArgumentException> { Delimiters("//2\\n123") }
         }
     }
 ```
 
 문자가 아닌 숫자를 커스텀 구분자로 사용하는 것은 문법적으로 올바르지 않습니다.
-따라서 `StructuredInput` 객체 생성 시 `IllegalArgumentException` 예외를 던집니다.
+따라서 `Delimiters` 객체 생성 시 `IllegalArgumentException` 예외를 던집니다.
 
 ### 커스텀 구분자 지정이 처음에 시작되지 않는 경우
 

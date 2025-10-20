@@ -83,7 +83,7 @@ class ApplicationTest : NsTest() {
     @Test
     fun `숫자를 커스텀 구분자로 사용하는 경우`() {
         assertSimpleTest {
-            assertThrows<IllegalArgumentException> { StructuredInput("//2\\n123") }
+            assertThrows<IllegalArgumentException> { Delimiters("//2\\n123") }
         }
     }
 
