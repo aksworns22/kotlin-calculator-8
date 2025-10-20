@@ -123,6 +123,13 @@ class ApplicationTest : NsTest() {
     }
 
     @Test
+    fun `커스텀 구분자 지정이 처음에 시작되지 않는 경우`() {
+        assertSimpleTest {
+            assertThrows<IllegalArgumentException> { StructuredInput("1//;\n") }
+        }
+    }
+
+    @Test
     fun `커스텀 구분자 사용`() {
         assertSimpleTest {
             run("//;\\n1")
